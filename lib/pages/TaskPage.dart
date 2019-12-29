@@ -16,6 +16,12 @@ class Date {
   final String weekDay;
 
   Date(this.year, this.month, this.day, this.weekDay);
+
+  bool equals(Date date) {
+    if(date.year == year && date.month == month && date.day == day)
+      return true;
+    return false;
+  }
 }
 
 class DateBuilder {
@@ -74,7 +80,7 @@ class TaskPageState extends State<TaskPage> {
       padding: EdgeInsets.all(8.0),
       itemCount: _taskList.length,
       itemBuilder: (context, index) {
-        if (_taskList[index].date.day == chosenDate.day) {
+        if (_taskList[index].date.equals(chosenDate)) {
           if (_taskList[index].finished)
             return _buildTaskComplete(context, _taskList[index]);
           else

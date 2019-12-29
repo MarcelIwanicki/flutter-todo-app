@@ -4,7 +4,7 @@ import 'package:flutter_todo_app/pages/TaskPage.dart';
 import 'package:flutter_todo_app/shapes/BottomBackgroundShape.dart';
 import 'package:flutter_todo_app/shapes/TopBackgroundShape.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -29,12 +29,7 @@ class ToDoList extends StatefulWidget {
 }
 
 final taskPageKey = GlobalKey<TaskPageState>();
-Date chosenDate = DateBuilder()
-    .year(DateTime.now().year)
-    .month(DateTime.now().month)
-    .day(DateTime.now().day)
-    .weekDay(DateFormat('EEEE').format(DateTime.now()))
-    .build();
+Date chosenDate = DateBuilder().from(DateTime.now()).build();
 
 class ToDoListState extends State<ToDoList> {
   @override
@@ -193,7 +188,7 @@ class ToDoListState extends State<ToDoList> {
         context: context,
         firstDate: DateTime(1999),
         lastDate: DateTime(2100),
-        initialDate: DateTime.now());
+        initialDate: DateTime(chosenDate.year, chosenDate.month, chosenDate.day));
 
     if (pickedDate != null) {
       setState(() {
