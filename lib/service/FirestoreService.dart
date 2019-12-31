@@ -2,7 +2,6 @@ import 'dart:core';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_todo_app/model/Task.dart';
-import 'package:uuid/uuid.dart';
 
 class FirestoreService {
   String uid;
