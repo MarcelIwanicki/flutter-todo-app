@@ -78,16 +78,32 @@ class TaskPageState extends State<TaskPage> {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Icon(
-              Icons.radio_button_checked,
-              color: Theme.of(context).primaryColor,
-              size: 20,
+            Row(
+              children: <Widget>[
+                Icon(
+                  Icons.radio_button_checked,
+                  color: Theme.of(context).primaryColor,
+                  size: 20,
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Text(task.task),
+
+              ],
             ),
-            SizedBox(
-              width: 20,
-            ),
-            Text(task.task),
+            Row(
+              children: <Widget>[
+                IconButton(
+                  onPressed: () => _showRemoveDialog(context, task),
+                  icon: Icon(
+                      Icons.delete_forever
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
@@ -98,6 +114,13 @@ class TaskPageState extends State<TaskPage> {
     setState(() {
       _taskList.add(task);
       firestoreService.addTask(task);
+    });
+  }
+
+  void _showRemoveDialog(BuildContext context, Task task) {
+    setState(() {
+      _taskList.remove(task);
+      firestoreService.deleteTask(task.id);
     });
   }
 }
