@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "631443001899",
+    "firebase_url": "https://to-do-app-34d2c.firebaseio.com",
+    "project_id": "to-do-app-34d2c",
+    "storage_bucket": "to-do-app-34d2c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:631443001899:android:5bf3bd0eafba8c5635d06e",
+        "android_client_info": {
+          "package_name": "com.iwanicki.marcel.flutter_todo_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "631443001899-v7i45hcvv5n81lahil002oq9mp1fdlhe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCy5jnh_mMyOpxHwRYXuiCF7yC5pWbZZg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "631443001899-v7i45hcvv5n81lahil002oq9mp1fdlhe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
