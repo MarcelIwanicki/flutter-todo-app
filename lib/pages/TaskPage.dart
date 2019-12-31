@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/main.dart';
 import 'package:flutter_todo_app/model/Task.dart';
+import 'package:flutter_todo_app/pages/RemoveTaskPage.dart';
 import 'package:flutter_todo_app/service/FirestoreService.dart';
 
 class TaskPage extends StatefulWidget {
@@ -97,7 +98,21 @@ class TaskPageState extends State<TaskPage> {
             Row(
               children: <Widget>[
                 IconButton(
-                  onPressed: () => _showRemoveDialog(context, task),
+                onPressed: () async {
+                    bool shouldRemove = await showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Dialog(
+                        child: RemoveTaskPage(task),
+                        shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12))),
+                      );
+                    });
+
+                    if (shouldRemove) {
+                      _removeTaskFromList(task);
+                    }
+                  },
                   icon: Icon(
                       Icons.delete_forever
                   ),
@@ -117,7 +132,7 @@ class TaskPageState extends State<TaskPage> {
     });
   }
 
-  void _showRemoveDialog(BuildContext context, Task task) {
+  void _removeTaskFromList(Task task) {
     setState(() {
       _taskList.remove(task);
       firestoreService.deleteTask(task.id);
