@@ -4,6 +4,10 @@ import 'package:flutter_todo_app/pages/TaskPage.dart';
 import 'package:flutter_todo_app/shapes/BottomBackgroundShape.dart';
 import 'package:flutter_todo_app/shapes/TopBackgroundShape.dart';
 import 'package:flutter/services.dart';
+import 'package:uuid/uuid.dart';
+
+import 'model/Date.dart';
+import 'model/Task.dart';
 
 
 void main() => runApp(MyApp());
@@ -79,7 +83,7 @@ class ToDoListState extends State<ToDoList> {
               });
 
           if (result.isNotEmpty)
-            taskPageKey.currentState.addToTaskList(Task(result, chosenDate, false));
+            taskPageKey.currentState.addToTaskList(Task(Uuid().v4(), result, chosenDate, false));
         },
         child: Icon(Icons.add),
       ),

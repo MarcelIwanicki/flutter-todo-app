@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo_app/main.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter_todo_app/model/Task.dart';
+import 'package:flutter_todo_app/service/FirestoreService.dart';
 
 class TaskPage extends StatefulWidget {
   TaskPage({Key key}) : super(key: key);
@@ -9,70 +10,24 @@ class TaskPage extends StatefulWidget {
   State<StatefulWidget> createState() => TaskPageState();
 }
 
-class Date {
-  final int year;
-  final int month;
-  final int day;
-  final String weekDay;
-
-  Date(this.year, this.month, this.day, this.weekDay);
-
-  bool equals(Date date) {
-    if(date.year == year && date.month == month && date.day == day)
-      return true;
-    return false;
-  }
-}
-
-class DateBuilder {
-  int mYear;
-  int mMonth;
-  int mDay;
-  String mWeekDay;
-
-  DateBuilder from(DateTime dateTime) {
-    mYear = dateTime.year;
-    mMonth = dateTime.month;
-    mDay = dateTime.day;
-    mWeekDay = DateFormat('EEEE').format(dateTime);
-    return this;
-  }
-
-  DateBuilder year(int year) {
-    mYear = year;
-    return this;
-  }
-
-  DateBuilder month(int month) {
-    mMonth = month;
-    return this;
-  }
-
-  DateBuilder day(int day) {
-    mDay = day;
-    return this;
-  }
-
-  DateBuilder weekDay(String weekDay) {
-    mWeekDay = weekDay;
-    return this;
-  }
-
-  Date build() {
-    return Date(mYear, mMonth, mDay, mWeekDay);
-  }
-}
-
-class Task {
-  final String task;
-  final Date date;
-  final bool finished;
-
-  const Task(this.task, this.date, this.finished);
-}
-
 class TaskPageState extends State<TaskPage> {
+  FirestoreService firestoreService;
   List<Task> _taskList = new List<Task>();
+
+  TaskPageState() {
+    firestoreService = FirestoreService(uid: 'to-do-app-34d2c');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadList();
+  }
+
+  void _loadList() async {
+    _taskList = await firestoreService.getTaskList();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,14 +39,14 @@ class TaskPageState extends State<TaskPage> {
           if (_taskList[index].finished)
             return _buildTaskComplete(context, _taskList[index]);
           else
-            return _buildTaskUncomplete(context, _taskList[index]);
+            return _buildTaskIncomplete(context, _taskList[index]);
         } else
           return Container();
       },
     );
   }
 
-  Widget _buildTaskUncomplete(BuildContext context, Task task) {
+  Widget _buildTaskIncomplete(BuildContext context, Task task) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -138,6 +93,7 @@ class TaskPageState extends State<TaskPage> {
   void addToTaskList(Task task) {
     setState(() {
       _taskList.add(task);
+      firestoreService.addTask(task);
     });
   }
 }
