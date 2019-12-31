@@ -51,13 +51,17 @@ class TaskPageState extends State<TaskPage> {
       padding: const EdgeInsets.all(8.0),
       child: Row(
         children: <Widget>[
-          Icon(
-            Icons.radio_button_unchecked,
-            color: Theme.of(context).primaryColor,
-            size: 20,
-          ),
-          SizedBox(
-            width: 20,
+          IconButton(
+            onPressed: () {
+              task.finished = true;
+              firestoreService.updateTask(task);
+              setState(() {});
+            },
+            icon: Icon(
+              Icons.radio_button_unchecked,
+              color: Theme.of(context).primaryColor,
+              size: 20,
+            ),
           ),
           Text(
             task.task,

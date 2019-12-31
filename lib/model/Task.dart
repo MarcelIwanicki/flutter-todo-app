@@ -4,9 +4,9 @@ class Task {
   final String id;
   final String task;
   final Date date;
-  final bool finished;
+  bool finished;
 
-  const Task(this.id, this.task, this.date, this.finished);
+  Task(this.id, this.task, this.date, this.finished);
 }
 
 class TaskBuilder {
