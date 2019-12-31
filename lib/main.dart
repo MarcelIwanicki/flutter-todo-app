@@ -41,6 +41,7 @@ class ToDoListState extends State<ToDoList> {
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
 
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: Stack(
         children: <Widget>[
           BottomBackgroundShape(),
